@@ -8,13 +8,11 @@ class App{
         this.ctx = this.canvas.getContext("2d");
 
         this.gameLife = document.getElementById("game-life");
-        this.gameScore = document.getElementById("game-score");
 
         const blockWidth = 50;
         const blockHeight = 20;
 
         this.life = 5;
-        this.score = 0;
 
         this.blocks = [];
 

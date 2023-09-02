@@ -4,6 +4,9 @@ export class Ball{
         this.y = 0;
         this.r = r;
 
+        this.gameScore = document.getElementById("game-score");
+        this.score = 0;
+
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
 
@@ -73,6 +76,9 @@ export class Ball{
                     this.vx *= -1;
                     this.x += this.vy;
                 }
+
+                this.score += 10;
+                this.gameScore.textContent = `점수 : ${this.score}`;
 
             } else{
                 // 충돌하지 않을 때만 다시 그려준다.
