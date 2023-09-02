@@ -3,18 +3,18 @@ import { Bar } from "./bar.js";
 import { Ball } from "./ball.js";
 
 class App{
-    gameLife = document.getElementById("game-life");
-    gameScore = document.getElementById("game-score");
-
     constructor(){
         this.canvas = document.getElementById("gameCanvas");
         this.ctx = this.canvas.getContext("2d");
 
+        this.gameLife = document.getElementById("game-life");
+        this.gameScore = document.getElementById("game-score");
+
         const blockWidth = 50;
         const blockHeight = 20;
 
-        let life = 5;
-        let score = 0;
+        this.life = 5;
+        this.score = 0;
 
         this.blocks = [];
 
@@ -38,9 +38,14 @@ class App{
             // 스페이스바
             if(e.key == " "){ 
                 if (this.ball.isGameStart != true) {
-                    life--;
-                    this.gameLife.textContent = `남은 기회 : ${life}`
+                    this.life--;
+                    this.gameLife.textContent = `남은 기회 : ${this.life}`
                 }
+
+                if (this.life == -1) {
+                    modal();
+                }
+
                 this.ball.isGameStart = true;
             }
         });
@@ -70,4 +75,31 @@ class App{
 
 window.onload = () => {
     new App();
+}
+
+function modal() {
+    const modalHTML = `
+        <div class="modal">
+            <div class="modal-content">
+                <h2>게임 종료</h2>
+                <p>기회가 모두 소진되었습니다.</p>
+                <button id="restart-button">재시작</button>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    const restartButton = document.getElementById('restart-button');
+    restartButton.addEventListener('click', () => {
+        location.reload(true);
+        closeModal();
+    });
+}
+
+function closeModal() {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        modal.remove();
+    }
 }
