@@ -40,11 +40,12 @@ class App{
                     this.gameLife.textContent = `남은 기회 : ${this.life}`
                 }
 
+                this.ball.isGameStart = true;
+                
                 if (this.life == -1) {
                     modal();
+                    this.ball.isGameStart = false;
                 }
-
-                this.ball.isGameStart = true;
             }
         });
 
