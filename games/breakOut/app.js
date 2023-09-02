@@ -3,13 +3,19 @@ import { Bar } from "./bar.js";
 import { Ball } from "./ball.js";
 
 class App{
+    gameLife = document.getElementById("game-life");
+    gameScore = document.getElementById("game-score");
+
     constructor(){
         this.canvas = document.getElementById("gameCanvas");
         this.ctx = this.canvas.getContext("2d");
 
         const blockWidth = 50;
         const blockHeight = 20;
-        
+
+        let life = 5;
+        let score = 0;
+
         this.blocks = [];
 
         for(let i = 0; i <= this.canvas.width - blockWidth; i += blockWidth){
@@ -30,7 +36,13 @@ class App{
             // 왼쪽
             if(e.key === "ArrowLeft"){ this.bar.vx = -moveSpeed; }
             // 스페이스바
-            if(e.key == " "){ this.ball.isGameStart = true; }
+            if(e.key == " "){ 
+                if (this.ball.isGameStart != true) {
+                    life--;
+                    this.gameLife.textContent = `남은 기회 : ${life}`
+                }
+                this.ball.isGameStart = true;
+            }
         });
 
         window.addEventListener('keyup', (e) => {
