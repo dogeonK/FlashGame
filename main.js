@@ -7,6 +7,26 @@ for (let i = 1; i < tabs.length; i++) {
     tabs[i].addEventListener("click", function(event){filter(event)});
 }
 
+function render() {
+    let resultHTML = ''
+    let list = [];
+
+    if (mode == 'all') {
+        list = taskList;
+    }
+    else if (mode == 'ongoing' || mode == 'done') {
+        list = filterList;
+    }
+
+    for (let i = 0; i < list.length; i++) {
+        resultHTML += `<div class="task">
+            <div class="task-done">${list[i].taskContent}</div>
+        </div>`;
+    }
+
+    document.getElementById("task-board").innerHTML = resultHTML;
+}
+
 function filter(event) {
     if (event) {
         mode = event.target.id;
